@@ -1,8 +1,6 @@
 package com.isa.queues.controller;
 
-import com.isa.queues.model.AdMessage;
 import com.isa.queues.model.Message;
-import com.isa.queues.model.RabbitLocationMessage;
 import com.isa.queues.service.MessageBroker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +19,14 @@ public class MessageQueueController {
     }
 
     @PostMapping("/send/direct/{exchangeName}/{routingKey}")
-    public ResponseEntity<String> sendRabbitLocation(@PathVariable String exchangeName, @PathVariable String routingKey, @RequestBody RabbitLocationMessage location) {
-        messageBroker.sendMessageToExchange(exchangeName, routingKey, location);
+    public ResponseEntity<String> sendRabbitLocation(@PathVariable String exchangeName, @PathVariable String routingKey, @RequestBody Object payload) {
+        messageBroker.sendMessageToExchange(exchangeName, routingKey, payload);
         return new ResponseEntity<>("Lokacija poslata u exchange: " + exchangeName + " sa ključem: " + routingKey, HttpStatus.OK);
     }
 
     @PostMapping("/send/fanout/{exchangeName}")
-    public ResponseEntity<String> sendAdMessage(@PathVariable String exchangeName, @RequestBody AdMessage adMessage) {
-        messageBroker.sendMessageToExchange(exchangeName, null, adMessage);
+    public ResponseEntity<String> sendAdMessage(@PathVariable String exchangeName, @RequestBody Object payload) {
+        messageBroker.sendMessageToExchange(exchangeName, null, payload);
         return new ResponseEntity<>("Oglas poslat u fanout exchange: " + exchangeName, HttpStatus.OK);
     }
 
