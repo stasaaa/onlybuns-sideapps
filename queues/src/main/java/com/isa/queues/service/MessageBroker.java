@@ -25,8 +25,6 @@ public class MessageBroker {
         fanoutExchange.bindQueue(null, "ad-agency1-queue");
         fanoutExchange.bindQueue(null, "ad-agency2-queue");
         exchanges.put("ad-broadcast-exchange", fanoutExchange);
-
-        System.out.println("Message Broker inicijalizovan. Kreirani su redovi i exchange-i.");
     }
 
     public void createQueue(String queueName) {

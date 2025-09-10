@@ -17,13 +17,13 @@ def send_rabbit_care_location(name, latitude, longitude):
     try:
         response = requests.post(broker_url, data=json.dumps(location_data), headers=headers)
         if response.status_code == 200:
-            print(f"✅ Uspešno poslata lokacija: '{name}'")
+            print(f"Uspešno poslata lokacija: '{name}'")
         else:
-            print(f"❌ Greška pri slanju lokacije. Status kod: {response.status_code}")
+            print(f"Greška pri slanju lokacije. Status kod: {response.status_code}")
             print(f"Odgovor servera: {response.text}")
 
     except requests.exceptions.RequestException as e:
-        print(f"❌ Nije moguće povezati se sa brokerom. Proverite da li je aplikacija pokrenuta na portu 8083.")
+        print(f"Nije moguće povezati se sa brokerom. Proverite da li je aplikacija pokrenuta na portu 8083.")
         print(f"Greška: {e}")
 
 def main():
@@ -38,8 +38,7 @@ def main():
     for name, lat, lon in locations:
         send_rabbit_care_location(name, lat, lon)
         time.sleep(random.randint(1, 3))
-        
-    print("\n--- Simulacija završena. ---")
+
 
 if __name__ == "__main__":
     main()
